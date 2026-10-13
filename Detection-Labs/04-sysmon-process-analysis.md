@@ -88,6 +88,16 @@ Personal Windows username information has been redacted before publication.
 
 ---
 
+### Sysmon Event ID 1 — PowerShell and whoami.exe
+
+The following screenshot shows a controlled process creation event in which PowerShell launched the Windows `whoami.exe` utility.
+
+![Sysmon PowerShell whoami Process Creation](../Screenshots/sysmon-powershell-whoami-event-id-1.png)
+
+Sysmon recorded the child process, parent process, command line, process identifiers, integrity level, and SHA-256 hash.
+
+Personal Windows username information was redacted before publication.
+
 ## Observed Results
 
 Microsoft Sysmon was successfully enabled and initialized on the Windows 11 endpoint.
@@ -113,6 +123,29 @@ The resulting process creation event was identified in Windows Event Viewer.
 | Log Source | Microsoft-Windows-Sysmon/Operational |
 | File Hash | SHA-256 recorded |
 
+### Investigation 02 — PowerShell Process Execution
+
+A controlled test was performed by launching Windows PowerShell and executing `whoami.exe`.
+
+The command executed successfully, and the corresponding Sysmon Event ID 1 was identified in Windows Event Viewer.
+
+#### Event Details
+
+| Field | Observed Value |
+|---|---|
+| Event ID | 1 |
+| Event Type | Process Create |
+| Application | whoami.exe |
+| Process ID | 12536 |
+| Parent Process | powershell.exe |
+| Parent Process ID | 2400 |
+| Integrity Level | Medium |
+| Timestamp | 2026-10-13 15:42:01 (Sri Lanka) |
+| Log Source | Microsoft-Windows-Sysmon/Operational |
+| File Hash | SHA-256 recorded |
+
+The event confirmed that PowerShell launched `whoami.exe` as a child process.
+
 ---
 
 ## Analysis
@@ -133,6 +166,31 @@ The process executed with Medium integrity, consistent with a normal non-elevate
 
 Sysmon also recorded a SHA-256 file hash, which can support executable identification during security investigations.
 
+### PowerShell Process Investigation
+
+The second investigation demonstrated how Sysmon records command-line utilities launched from Windows PowerShell.
+
+The ParentImage field identified PowerShell as the parent process of `whoami.exe`.
+
+The observed process relationship was:
+
+```text
+powershell.exe
+    |
+    +--- whoami.exe
+```
+
+The `whoami.exe` process was created with Process ID 12536, while its parent PowerShell process had Process ID 2400.
+
+The process executed with Medium integrity, and Sysmon successfully recorded its executable path, command line, timestamp, and SHA-256 hash.
+
+This activity was intentionally generated using a legitimate Windows command.
+
+No malicious behavior was identified.
+
+The investigation demonstrated how Sysmon can help SOC analysts trace process execution and investigate parent-child process relationships.
+
+
 ### Security Assessment
 
 The activity was generated intentionally as part of a controlled monitoring exercise.
@@ -147,7 +205,13 @@ Wazuh SIEM integration remains pending.
 
 ## MITRE ATT&CK Mapping
 
-No malicious technique has been identified in this controlled Notepad execution test.
+Both the Notepad and PowerShell `whoami.exe` executions were performed intentionally as part of controlled monitoring exercises.
+
+Although PowerShell execution and system information discovery can be associated with MITRE ATT&CK techniques in malicious contexts, the observed activities in this lab were legitimate.
+
+No malicious technique was identified from the collected evidence.
+
+The primary objective of these investigations was to demonstrate process monitoring and parent-child process analysis using Sysmon.
 
 ---
 
