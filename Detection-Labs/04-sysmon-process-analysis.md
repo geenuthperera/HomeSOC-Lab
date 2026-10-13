@@ -2,7 +2,8 @@
 
 ## Status
 
-🟡 Planned — awaiting Wazuh environment deployment.
+🟠 In Progress — Local Sysmon process monitoring verified.
+Wazuh SIEM integration is pending.
 
 ---
 
