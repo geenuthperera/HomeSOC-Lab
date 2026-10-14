@@ -3,6 +3,7 @@
 ## Status
 
 🟠 In Progress — Local Sysmon process monitoring verified.
+
 Wazuh SIEM integration is pending.
 
 ---
