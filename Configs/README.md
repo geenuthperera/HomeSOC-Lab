@@ -27,9 +27,9 @@ Wazuh SIEM and endpoint agent integration remain pending.
 
 Collect detailed Windows process creation telemetry, including executable paths, command-line arguments, process identifiers, parent-child process relationships, integrity levels, and file hashes.
 
-### Installation
+### Installation and Verification
 
-Microsoft Sysmon was enabled using Administrator PowerShell.
+Microsoft Sysmon was enabled as a built-in Windows optional feature using Administrator PowerShell.
 
 ```powershell
 Enable-WindowsOptionalFeature -Online -FeatureName Sysmon
@@ -41,13 +41,35 @@ Sysmon was then initialized using:
 sysmon -i
 ```
 
-The service status was verified with:
+The Sysmon service status was verified with:
 
 ```powershell
 Get-Service sysmon*
 ```
 
-The Sysmon service was confirmed to be running.
+The Sysmon service was confirmed to be running during testing.
+
+### Windows Optional Feature Verification
+
+To confirm that the built-in Sysmon feature was enabled, the following command was executed in Administrator PowerShell:
+
+```powershell
+Get-WindowsOptionalFeature -Online -FeatureName Sysmon
+```
+
+The observed output confirmed:
+
+```text
+FeatureName : Sysmon
+DisplayName : Sysmon
+State       : Enabled
+```
+
+This verified that the built-in Windows Sysmon feature was enabled on the Windows 11 endpoint.
+
+Additionally, Sysmon Event ID 1 process creation events were successfully captured and investigated through Windows Event Viewer.
+
+No custom Sysmon XML configuration was applied during the documented investigation.
 
 ### Event Log Location
 
