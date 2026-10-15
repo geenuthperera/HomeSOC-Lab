@@ -285,7 +285,8 @@ Future testing involving Kali Linux will be performed within an appropriately is
 | Wazuh Manager deployment | Pending |
 | Wazuh Indexer and Dashboard | Pending |
 | Centralized security alert investigation | Pending |
-| Formal incident reporting | Planned |
+| First formal investigation report (INV-001) | Completed |
+| Additional investigation reports | Planned |
 | Isolated Kali testing integration | Planned |
 
 ---
@@ -301,7 +302,7 @@ The next development milestones are:
 5. Integrate Microsoft Sysmon telemetry.
 6. Configure Wazuh File Integrity Monitoring.
 7. Generate controlled test activities and investigate the resulting centralized alerts.
-8. Develop formal SOC incident investigation reports.
+8. Develop additional formal SOC investigation reports.
 9. Extend the lab with additional controlled security testing scenarios.
 
 ---
