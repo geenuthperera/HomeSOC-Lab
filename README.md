@@ -228,6 +228,24 @@ Screenshots have been reviewed and personal Windows account information has been
 
 Evidence is maintained in the [Screenshots](Screenshots/) directory.
 
+### Security Investigation Reports
+
+The HomeSOC project includes a formal security investigation
+report based on a controlled Windows authentication failure.
+
+**Investigation INV-001 — Failed Authentication Detection**
+
+- Event ID: 4625
+- Log Source: Windows Security Event Log
+- Classification: Controlled Lab Activity
+- Investigation Outcome: Expected authentication failure
+- Status: Closed
+
+[View INV-001 — Failed Authentication Investigation](Incident-Reports/INV-001-failed-authentication.md)
+
+Additional investigation reports will be developed as the
+project expands.
+
 ---
 
 ## Project Progress
@@ -259,8 +277,9 @@ Evidence is maintained in the [Screenshots](Screenshots/) directory.
 
 ### Phase 3 — Further SOC Development
 
-- [ ] Create formal incident investigation reports.
-- [ ] Add an architecture diagram reflecting the implemented environment.
+- [x] Create first formal security investigation report (INV-001).
+- [x] Document current Windows monitoring architecture.
+- [x] Document planned Wazuh SIEM architecture.
 - [ ] Develop additional controlled security detection scenarios.
 - [ ] Explore relevant MITRE ATT&CK mappings.
 - [ ] Improve alert investigation and event correlation workflows.
@@ -290,7 +309,7 @@ Planned improvements include:
 - Additional endpoint telemetry collection.
 - File Integrity Monitoring through Wazuh.
 - Custom detection rules and alert investigation.
-- Formal incident investigation reports.
+- Additional SOC investigation reports covering Sysmon, PowerShell, and file system activity.
 - Controlled security simulations in an isolated virtual environment.
 - Expanded MITRE ATT&CK technique analysis.
 - Improved SOC architecture and documentation.
