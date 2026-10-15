@@ -1,4 +1,3 @@
-
 # Detection Lab 02 — Failed Authentication Detection
 
 ## Status
@@ -240,6 +239,77 @@ Therefore, no malicious MITRE ATT&CK technique was confirmed from the collected 
 - Investigated the affected account and process information.
 - Distinguished authorized testing from potentially malicious authentication activity.
 - Collected real Windows security evidence for the HomeSOC portfolio.
+- Removed the temporary test account and verified successful cleanup after completing the investigation.
+
+---
+
+## Post-Investigation Cleanup
+
+Following the successful completion of Detection Lab 02, the temporary local Windows account `HomeSOC_Test` was removed from the Windows 11 endpoint.
+
+The account was created exclusively for controlled authentication testing and was no longer required after completing the investigation and collecting Event ID 4625 evidence.
+
+### Step 1 — Remove Temporary Test Account
+
+Administrator PowerShell was used to remove the account:
+
+```powershell
+net user HomeSOC_Test /delete
+```
+
+Windows returned:
+
+```text
+The command completed successfully.
+```
+
+### Step 2 — Verify Account Removal
+
+The following command was executed:
+
+```powershell
+net user HomeSOC_Test
+```
+
+Windows returned:
+
+```text
+The user name could not be found.
+```
+
+This confirmed that the temporary local account had been removed.
+
+### Step 3 — Verify User Profile Cleanup
+
+The following PowerShell command checked whether a profile directory remained:
+
+```powershell
+Test-Path "C:\Users\HomeSOC_Test"
+```
+
+Observed result:
+
+```text
+False
+```
+
+No remaining profile directory was detected at the specified location.
+
+### Cleanup Summary
+
+| Verification | Result |
+|---|---|
+| Temporary Account | Deleted successfully |
+| Account Removal | Verified |
+| Remaining Profile Directory | Not detected |
+| Event ID 4625 Evidence | Preserved |
+| Investigation Documentation | Preserved |
+
+**Final Cleanup Status:** Completed.
+
+The temporary account was successfully removed after the controlled authentication investigation. Previously collected Windows Security Event ID 4625 evidence was retained for documentation.
+
+This cleanup demonstrates the importance of removing unnecessary test accounts after completing security exercises.
 
 ---
 
